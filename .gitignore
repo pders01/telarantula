@@ -1,5 +1,10 @@
 .env
 .vstags
+.vscode
 *.session
 testing.py
 __pycache__
+channel_ids.txt
+channel_lookup.json
+targets.txt
+testing.py

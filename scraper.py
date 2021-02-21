@@ -85,8 +85,7 @@ dict_messages = {}
 dict_photos = {}
 
 now = datetime.now()
-#myEntities = prober()
-#output = ["{}_{}".format(id, now.strftime("%d%m%Y_%H%M%S")) for id in myEntity]
+
 message_limit = 5
 
 def scrape(entity):
@@ -116,7 +115,7 @@ def scrape(entity):
 import telethon
 arg = sys.argv
 try:
-    scrape(int(arg[1]))
+    scrape(arg[1])
 except ValueError:
     print(f"Input entity not found, skipping ..")
     pass
