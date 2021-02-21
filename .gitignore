@@ -1,0 +1,5 @@
+.env
+.vstags
+*.session
+testing.py
+__pycache__
