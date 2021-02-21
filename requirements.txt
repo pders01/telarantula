@@ -1,0 +1,9 @@
+bpytop==1.0.62
+progress==1.5
+psutil==5.8.0
+pyaes==1.6.1
+pyasn1==0.4.8
+python-dotenv==0.15.0
+rsa==4.7.1
+ruamel.yaml==0.16.12
+Telethon==1.19.5
