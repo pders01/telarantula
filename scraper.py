@@ -91,10 +91,15 @@ message_limit = 5
 
 def scrape(entity):
     i = 1
+<<<<<<< HEAD
     for message in client.iter_messages(entity=entity):
         
         print(message.id, end='\r')
         
+=======
+    for message in client.iter_messages(entity=entity, limit=message_limit):
+        print(f"{message.id}/0")
+>>>>>>> a48f43aeda54445fd1c57754ad6d3af9808b4c68
         if message.media != None:
             message_hasMedia = True
         else:
@@ -110,7 +115,11 @@ def scrape(entity):
 
         list_messages.append({
             'message_id': message.id,
+<<<<<<< HEAD
             'message_text': str(message.raw_text),
+=======
+            'message_text': str(message.text),
+>>>>>>> a48f43aeda54445fd1c57754ad6d3af9808b4c68
             'message_date': message.date,
             'message_views': message.views,
             'message_forwards': message.forwards,
@@ -122,7 +131,11 @@ def scrape(entity):
     output = "{}_{}".format(entity, now.strftime("%d%m%Y_%H%M%S"))
 
     sys.stdout = open("{}.yml".format(output), 'w+')
+<<<<<<< HEAD
     yaml.dump(list_messages, sys.stdout)
+=======
+    yaml.dump(dict_messages, sys.stdout)
+>>>>>>> a48f43aeda54445fd1c57754ad6d3af9808b4c68
 
     os.system("{} {}.yml {} {}.json ".format('yj', output, '>', output))
 

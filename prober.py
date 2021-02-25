@@ -24,7 +24,11 @@ def prober():
         out_file.close()
 
     with open('channel_lookup.json', 'w', encoding='utf-8') as lo_file:
+<<<<<<< HEAD
         json.dump(channel_dict, lo_file)
+=======
+        json.dumps(channel_dict, lo_file)
+>>>>>>> a48f43aeda54445fd1c57754ad6d3af9808b4c68
         lo_file.close()
 
 prober()
