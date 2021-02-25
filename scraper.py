@@ -1,6 +1,6 @@
 # setting up a client
 
-import pprint
+#import pprint
 import sys
 import os
 from settings import api_id, api_hash, phone
@@ -8,10 +8,10 @@ from datetime import datetime
 from ruamel.yaml import YAML
 
 #client = client()
-from telethon import functions, types
-from telethon.tl.types import InputPeerEmpty
-from telethon.tl.functions.messages import GetDialogsRequest
-from typing import Type
+from telethon import functions, types, errors
+#from telethon.tl.types import InputPeerEmpty
+#from telethon.tl.functions.messages import GetDialogsRequest
+#from typing import Type
 from telethon.sync import TelegramClient
 
 
@@ -53,7 +53,18 @@ def prober():
 
     targets = []
     for channel_id in channel_ids:
-        if channel_id in [1152266850, 458119564, 1006503122, 1027214245, 1021345616, 1001839309, 324512588, 1443252557, 1485239691, 365057030, 1228946795]:
+        if channel_id in [
+            1152266850, 
+            458119564, 
+            1006503122, 
+            1027214245, 
+            1021345616, 
+            1001839309, 
+            324512588, 
+            1443252557, 
+            1485239691, 
+            365057030, 
+            1228946795]:
             continue
         else:
             targets.append(channel_id)
@@ -70,45 +81,60 @@ last_date = None
 chunk_size = 200
 groups = []
 
+list_messages = []
 dict_messages = {}
 dict_photos = {}
 
 now = datetime.now()
-myEntities = prober()
-#output = ["{}_{}".format(id, now.strftime("%d%m%Y_%H%M%S")) for id in myEntity]
+
 message_limit = 5
-print(myEntities)
 
 def scrape(entity):
-    print(entity)
     i = 1
-    # doubles every iteration, why?
-    for message in client.iter_messages(entity=entity, limit=message_limit):
-        # print(message)
+    for message in client.iter_messages(entity=entity):
+        
+        print(message.id, end='\r')
+        
         if message.media != None:
             message_hasMedia = True
         else:
             message_hasMedia = False
-        dict_messages[i] = {
+        
+        if message.web_preview != None:
+            message_web = message.web_preview
+            message_web_description = message_web.description
+            message_web_url = message_web.url
+        else:
+            message_web_description = None
+            message_web_url = None
+
+        list_messages.append({
             'message_id': message.id,
-            'message_text': message.text,
+            'message_text': str(message.raw_text),
             'message_date': message.date,
             'message_views': message.views,
             'message_forwards': message.forwards,
-            'message_hasMedia': message_hasMedia
-        }
+            'message_hasMedia': message_hasMedia,
+            'message_web_description': message_web_description,
+            'message_web_url': message_web_url
+        })
         i += 1
+    output = "{}_{}".format(entity, now.strftime("%d%m%Y_%H%M%S"))
 
-        output = "{}_{}".format(entity, now.strftime("%d%m%Y_%H%M%S"))
+    sys.stdout = open("{}.yml".format(output), 'w+')
+    yaml.dump(list_messages, sys.stdout)
 
-        for item in dict_messages.values():
-            # print(type(item.get('message_date')))
-            item['message_date'] = str(item['message_date'])
+    os.system("{} {}.yml {} {}.json ".format('yj', output, '>', output))
 
-        sys.stdout = open("{}.yml".format(output), 'w+')
-        yaml.dump(dict_messages, sys.stdout)
+import telethon
+arg = sys.argv
+try:
+    scrape(arg[1])
+except ValueError:
+    print(f"Input entity not found, skipping ..")
+    pass
+except telethon.errors.rpcerrorlist.PeerIdInvalidError:
+    print("An invalid Peer was used ..")
+    pass
 
-        os.system("{} {}.yml {} {}.json".format('yj', output, '>', output))
 
-for entity in myEntities:
-    scrape(entity)

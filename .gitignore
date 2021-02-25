@@ -1,0 +1,13 @@
+.env
+.vstags
+.vscode
+*.session
+testing.py
+__pycache__
+channel_ids.txt
+channel_lookup.json
+targets.txt
+testing.ipynb
+test.py
+22022021_2130
+25022021_0010
