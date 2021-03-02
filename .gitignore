@@ -7,11 +7,15 @@ __pycache__
 channel_ids.txt
 channel_lookup.json
 targets.txt
-<<<<<<< HEAD
 testing.ipynb
 test.py
 22022021_2130
 25022021_0010
-=======
-testing.py
->>>>>>> a48f43aeda54445fd1c57754ad6d3af9808b4c68
+25022021_0010_red
+bin
+include
+lib
+lib64
+share
+pyvenv.cfg
+*.csv

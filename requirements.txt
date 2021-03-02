@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 aiohttp==3.7.4
 aiohttp-cors==0.7.0
 aioredis==1.3.1
@@ -205,14 +204,3 @@ xmltodict==0.12.0
 yarl==1.6.3
 youtube-dl==2020.9.14
 zict==2.0.0
-=======
-bpytop==1.0.62
-progress==1.5
-psutil==5.8.0
-pyaes==1.6.1
-pyasn1==0.4.8
-python-dotenv==0.15.0
-rsa==4.7.1
-ruamel.yaml==0.16.12
-Telethon==1.19.5
->>>>>>> a48f43aeda54445fd1c57754ad6d3af9808b4c68
